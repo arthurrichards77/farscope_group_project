@@ -14,7 +14,7 @@
   <xacro:include filename="$(find ur_description)/urdf/ur10.urdf.xacro" />
 
   <!-- make the arm -->
-  <xacro:ur10_robot prefix="ur10_" joint_limited="true"
+  <xacro:ur10_robot prefix="" joint_limited="true"
     shoulder_pan_lower_limit="${-pi}" shoulder_pan_upper_limit="${pi}"
     shoulder_lift_lower_limit="${-pi}" shoulder_lift_upper_limit="${pi}"
     elbow_joint_lower_limit="${-pi}" elbow_joint_upper_limit="${pi}"
@@ -26,7 +26,7 @@
 
   <!-- fix the gripper to the arm -->
   <joint name="gripper_base_joint" type="fixed">
-    <parent link="ur10_tool0" />
+    <parent link="tool0" />
     <child link = "robotiq_arg2f_base_link" />
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
   </joint>
@@ -36,7 +36,7 @@
 
   <joint name="arm_base_joint" type="fixed">
     <parent link="world" />
-    <child link = "ur10_base_link" />
+    <child link = "base_link" />
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
   </joint>
 
