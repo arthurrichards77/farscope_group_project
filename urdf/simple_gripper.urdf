@@ -3,14 +3,15 @@
   <link name="palm">
     <visual>
       <geometry>
-        <cylinder length="0.04" radius="0.04"/>
+        <cylinder length="0.04" radius="0.07"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0.02"/>
     </visual>
     <collision>
       <geometry>
-        <cylinder length="0.04" radius="0.04"/>
+        <cylinder length="0.04" radius="0.07"/>
       </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.02"/>
     </collision>
     <inertial>
       <mass value="0.1"/>
@@ -29,6 +30,7 @@
       <geometry>
         <box size="0.02 0.02 0.08"/>
       </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.04"/>
     </collision>
     <inertial>
       <mass value="0.1"/>
@@ -47,6 +49,7 @@
       <geometry>
         <box size="0.02 0.02 0.08"/>
       </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.04"/>
     </collision>
     <inertial>
       <mass value="0.1"/>
@@ -54,17 +57,35 @@
     </inertial>
   </link>
 
+  <!-- make fingers soft and sticky -->
+
+  <gazebo reference="finger1">
+    <mu1 value="0.8" />
+    <mu2 value="0.8" />
+    <kp  value="10000000" />
+  </gazebo>
+
+  <gazebo reference="finger2">
+    <mu1 value="0.8" />
+    <mu2 value="0.8" />
+    <kp  value="10000000" />
+  </gazebo>
+
+  <!-- one finger is fixed -->
+
   <joint name="palm_to_finger1" type="fixed">
     <parent link="palm"/>
     <child link="finger1"/>
-    <origin xyz="0.03 0 0.04"/>
+    <origin xyz="0.05 0 0.04"/>
   </joint>
+
+  <!-- other finger can slide -->
 
   <joint name="palm_to_finger2" type="prismatic">
     <parent link="palm"/>
     <child link="finger2"/>
-    <limit effort="1000.0" lower="0.0" upper="0.035" velocity="0.5"/>
-    <origin xyz="-0.03 0 0.04"/>
+    <limit effort="1000.0" lower="0.0" upper="0.065" velocity="0.5"/>
+    <origin xyz="-0.05 0 0.04"/>
   </joint>
 
   <transmission name="finger_trans">
@@ -73,7 +94,7 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
     <joint name="palm_to_finger2">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
   </transmission>
 

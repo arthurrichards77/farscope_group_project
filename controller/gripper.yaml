@@ -1,2 +1,3 @@
-type: "position_controllers/JointPositionController"
+type: "effort_controllers/JointPositionController"
 joint: palm_to_finger2
+pid: {p: 10.0, i: 0.0, d: 10.0}
