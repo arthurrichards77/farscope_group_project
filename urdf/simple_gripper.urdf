@@ -7,6 +7,15 @@
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0.02"/>
     </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.04" radius="0.04"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
   </link>
 
   <link name="finger1">
@@ -16,6 +25,15 @@
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0.04"/>
     </visual>
+    <collision>
+      <geometry>
+        <box size="0.02 0.02 0.08"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
   </link>
 
   <link name="finger2">
@@ -25,6 +43,15 @@
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0.04"/>
     </visual>
+    <collision>
+      <geometry>
+        <box size="0.02 0.02 0.08"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
   </link>
 
   <joint name="palm_to_finger1" type="fixed">
@@ -39,5 +66,15 @@
     <limit effort="1000.0" lower="0.0" upper="0.035" velocity="0.5"/>
     <origin xyz="-0.03 0 0.04"/>
   </joint>
+
+  <transmission name="finger_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="finger_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="palm_to_finger2">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
 
 </robot>

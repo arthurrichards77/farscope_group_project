@@ -26,4 +26,9 @@
   <rosparam file="$(find ur_gazebo)/controller/arm_controller_ur10.yaml" command="load"/>
   <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn arm_controller" respawn="false" output="screen"/>
 
+  <rosparam command="load"
+            file="$(find farscope_group_proj)/controller/gripper.yaml"
+            ns="gripper_controller" />
+  <node name="gripper_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn gripper_controller" respawn="false" output="screen"/>
+
 </launch>

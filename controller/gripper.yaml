@@ -1,0 +1,2 @@
+type: "position_controllers/JointPositionController"
+joint: palm_to_finger2
