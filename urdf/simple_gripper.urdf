@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<robot name="simple_gripper">
+  <link name="palm">
+    <visual>
+      <geometry>
+        <cylinder length="0.04" radius="0.04"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.02"/>
+    </visual>
+  </link>
+
+  <link name="finger1">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.08"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.04"/>
+    </visual>
+  </link>
+
+  <link name="finger2">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.08"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.04"/>
+    </visual>
+  </link>
+
+  <joint name="palm_to_finger1" type="fixed">
+    <parent link="palm"/>
+    <child link="finger1"/>
+    <origin xyz="0.03 0 0.04"/>
+  </joint>
+
+  <joint name="palm_to_finger2" type="prismatic">
+    <parent link="palm"/>
+    <child link="finger2"/>
+    <limit effort="1000.0" lower="0.0" upper="0.035" velocity="0.5"/>
+    <origin xyz="-0.03 0 0.04"/>
+  </joint>
+
+</robot>

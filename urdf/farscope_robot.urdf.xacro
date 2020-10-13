@@ -1,12 +1,11 @@
 <?xml version="1.0"?>
 <robot name="farscope_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+
   <!-- gripper -->
-  <xacro:include filename="$(find robotiq_2f_85_gripper_visualization)/urdf/robotiq_arg2f_85_model_macro.xacro" />
-  <xacro:robotiq_arg2f_85 prefix=""/>
+  <xacro:include filename="$(find farscope_group_proj)/urdf/simple_gripper.urdf" />
 
   <!-- arm (copied from ur_description/urdf/ur10_joint_limited.urdf.xacro) -->
   <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
-
   <!-- common stuff -->
   <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
 
@@ -27,7 +26,7 @@
   <!-- fix the gripper to the arm -->
   <joint name="gripper_base_joint" type="fixed">
     <parent link="tool0" />
-    <child link = "robotiq_arg2f_base_link" />
+    <child link = "palm" />
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
   </joint>
 
