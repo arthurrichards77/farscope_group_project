@@ -58,7 +58,7 @@
   </link>
 
   <!-- make fingers soft and sticky -->
-
+  <!-- removing - using grasp fix instead 
   <gazebo reference="finger1">
     <mu1 value="0.8" />
     <mu2 value="0.8" />
@@ -70,32 +70,69 @@
     <mu2 value="0.8" />
     <kp  value="10000000" />
   </gazebo>
+  -->
 
   <!-- one finger is fixed -->
-
+  <!--
   <joint name="palm_to_finger1" type="fixed">
     <parent link="palm"/>
     <child link="finger1"/>
     <origin xyz="0.05 0 0.04"/>
   </joint>
+  -->
 
-  <!-- other finger can slide -->
+  <!-- fingers can slide -->
+
+  <joint name="palm_to_finger1" type="prismatic">
+    <parent link="palm"/>
+    <child link="finger1"/>
+    <limit effort="1" lower="0.0" upper="0.03" velocity="0.05"/>
+    <origin xyz="0.05 0 0.04" rpy="0 0 3.14159265"/>
+  </joint>
 
   <joint name="palm_to_finger2" type="prismatic">
     <parent link="palm"/>
     <child link="finger2"/>
-    <limit effort="1000.0" lower="0.0" upper="0.065" velocity="0.5"/>
+    <limit effort="1.0" lower="0.0" upper="0.03" velocity="0.05"/>
     <origin xyz="-0.05 0 0.04"/>
   </joint>
 
-  <transmission name="finger_trans">
+  <transmission name="finger1_trans">
     <type>transmission_interface/SimpleTransmission</type>
-    <actuator name="finger_motor">
+    <actuator name="finger1_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="palm_to_finger1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <transmission name="finger2_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="finger2_motor">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
     <joint name="palm_to_finger2">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
   </transmission>
+
+  <gazebo>
+    <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
+        <arm>
+           <arm_name>arm</arm_name>
+           <palm_link> wrist_3_link  </palm_link>
+           <gripper_link> finger1 </gripper_link>
+           <gripper_link> finger2 </gripper_link>
+        </arm>
+       <forces_angle_tolerance>100</forces_angle_tolerance>
+       <update_rate>4</update_rate>
+       <grip_count_threshold>4</grip_count_threshold>
+       <max_grip_count>8</max_grip_count>
+       <release_tolerance>0.005</release_tolerance>
+       <disable_collisions_on_attach>false</disable_collisions_on_attach>
+       <contact_topic>__default_topic__</contact_topic>
+    </plugin>
+  </gazebo>
 
 </robot>
