@@ -1,8 +1,8 @@
 finger1_controller:
   type: "effort_controllers/JointPositionController"
   joint: palm_to_finger1
-  pid: {p: 10.0, i: 0.0, d: 1.0}
+  pid: {p: 1000.0, i: 0.0, d: 100.0}
 finger2_controller:
   type: "effort_controllers/JointPositionController"
   joint: palm_to_finger2
-  pid: {p: 10.0, i: 0.0, d: 1.0}
+  pid: {p: 1000.0, i: 0.0, d: 100.0}

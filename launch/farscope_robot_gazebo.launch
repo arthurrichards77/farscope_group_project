@@ -3,7 +3,7 @@
 <launch>
 
   <!-- get robot desc URDF into parameter --> 
-  <param name="robot_description" command="$(find xacro)/xacro $(find farscope_group_proj)/urdf/farscope_robot.urdf.xacro" />  
+  <param name="robot_description" command="$(find xacro)/xacro $(find farscope_group_proj)/urdf/farscope_robot.urdf.xacro use_grasp_fix:=True" />  
   
   <!-- launching gazebo (copied from ur_gazebo/ur10.launch) -->
   <arg name="paused" default="false" doc="Starts gazebo in paused mode" />
