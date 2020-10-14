@@ -2,7 +2,7 @@
 <robot name="farscope_robot" xmlns:xacro="http://ros.org/wiki/xacro">
 
   <!-- gripper -->
-  <xacro:include filename="$(find farscope_group_proj)/urdf/simple_gripper.urdf" />
+  <xacro:include filename="$(find farscope_group_proj)/urdf/simple_gripper.urdf.xacro" />
 
   <!-- arm (copied from ur_description/urdf/ur10_joint_limited.urdf.xacro) -->
   <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
