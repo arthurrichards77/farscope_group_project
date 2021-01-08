@@ -3,7 +3,7 @@
 <launch>
 
   <!-- get robot desc URDF into parameter --> 
-  <param name="robot_description" command="$(find xacro)/xacro $(find farscope_group_proj)/urdf/farscope_robot.urdf.xacro use_grasp_fix:=True" />  
+  <param name="robot_description" command="$(find xacro)/xacro $(find farscope_group_proj)/urdf/farscope_robot.urdf.xacro use_grasp_fix:=False" />  
   
   <!-- launching gazebo (copied from ur_gazebo/ur10.launch) -->
   <arg name="paused" default="false" doc="Starts gazebo in paused mode" />
@@ -11,7 +11,7 @@
   
   <!-- startup simulated world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" default="worlds/empty.world"/>
+    <arg name="world_name" default="$(find farscope_group_proj)/gazebo/farscope_test.world"/>
     <arg name="paused" value="$(arg paused)"/>
     <arg name="gui" value="$(arg gui)"/>
   </include>
