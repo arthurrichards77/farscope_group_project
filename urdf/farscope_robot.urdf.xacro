@@ -1,10 +1,13 @@
 <?xml version="1.0"?>
 <robot name="farscope_robot" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <!-- gripper -->
+  <!-- ************************************ -->
+  <!-- ****** gripper ****** -->
   <xacro:include filename="$(find farscope_group_proj)/urdf/simple_gripper.urdf.xacro" />
 
-  <!-- arm (copied from ur_description/urdf/ur10_joint_limited.urdf.xacro) -->
+  <!-- ************************************ -->
+  <!-- ****** arm stuff ****** -->  
+  <!-- copied from ur_description/urdf/ur10_joint_limited.urdf.xacro -->
   <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
   <!-- common stuff -->
   <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
@@ -13,7 +16,7 @@
   <xacro:include filename="$(find ur_description)/urdf/ur10.urdf.xacro" />
 
   <!-- make the arm -->
-  <xacro:ur10_robot prefix="" joint_limited="true"
+  <xacro:ur10_robot prefix="arm_" joint_limited="true"
     shoulder_pan_lower_limit="${-pi}" shoulder_pan_upper_limit="${pi}"
     shoulder_lift_lower_limit="${-pi}" shoulder_lift_upper_limit="${pi}"
     elbow_joint_lower_limit="${-pi}" elbow_joint_upper_limit="${pi}"
@@ -23,20 +26,99 @@
     transmission_hw_interface="$(arg transmission_hw_interface)"
 />
 
+  <!-- ************************************ -->
+  <!-- ****** build the mobile base ****** -->
+  <!-- adapting from neo_simulation:mmo700.urdf.xacro -->
+
+  <!--mmo700 common stuff -->
+  <xacro:include filename="$(find neo_simulation)/robots/mmo_700/urdf/xacros/common.gazebo.xacro" />
+
+  <!-- CABINET --> 
+  <xacro:include filename="$(find neo_simulation)/robots/mmo_700/urdf/xacros/cabinet.xacro" />
+
+  <!-- Body --> 
+  <xacro:include filename="$(find neo_simulation)/robots/mmo_700/urdf/xacros/mpo_700_body.xacro" />
+
+  <!-- SENSORS --> 
+  <!-- Sick-S300 -->
+  <!-- <xacro:include filename="$(find neo_simulation)/robots/mmo_700/xacros/sick_S300.xacro" /> -->
+
+  <!--Sick Micro-scan  -->
+  <xacro:include filename="$(find neo_simulation)/robots/mmo_700/urdf/xacros/micro_scan.xacro" /> 
+
+  <!-- Gazebo --> 
+  <xacro:include filename="$(find neo_simulation)/robots/mmo_700/urdf/xacros/mpo_700_gazebo.xacro" />
+
+  <!-- Head --> 
+  <xacro:include filename="$(find neo_simulation)/robots/mmo_700/urdf/xacros/mpo_700_caster.xacro" />
+
+  <!-- Wheel --> 
+  <xacro:include filename="$(find neo_simulation)/robots/mmo_700/urdf/xacros/mpo_700_wheel.xacro" />
+
+  <!-- Base Macro-->
+  <xacro:mpo_700_base name="base_link">
+  </xacro:mpo_700_base>
+
+<xacro:mpo_700_caster_0 name="mpo_700_caster_front_left" parent="base_link">
+    <origin xyz="0.24 0.18 0.27" rpy="3.14 0 -1.57" />
+  </xacro:mpo_700_caster_0>
+
+<!-- Casters -->
+<xacro:mpo_700_caster_1 name="mpo_700_caster_front_right" parent="base_link">
+    <origin xyz="0.24 -0.18 0.27" rpy="3.14 0 1.57" />
+  </xacro:mpo_700_caster_1>
+
+
+<xacro:mpo_700_caster_2 name="mpo_700_caster_back_left" parent="base_link">
+    <origin xyz="-0.24 0.18 0.27" rpy="3.14 0 -1.57" />
+  </xacro:mpo_700_caster_2>
+
+
+<xacro:mpo_700_caster_3 name="mpo_700_caster_back_right" parent="base_link">
+    <origin xyz="-0.24 -0.18 0.27" rpy="3.14 0 1.57" />
+  </xacro:mpo_700_caster_3>
+
+<!-- wheels -->
+<xacro:mpo_700_wheel name="mpo_700_wheel_front_left" parent="mpo_700_caster_front_left_link">
+    <origin xyz="-0.05 0. 0.18" rpy="0 0 0" />
+  </xacro:mpo_700_wheel>
+
+
+<xacro:mpo_700_wheel name="mpo_700_wheel_front_right" parent="mpo_700_caster_front_right_link">
+    <origin xyz="-0.05 0. 0.18" rpy="0 0 0" />
+  </xacro:mpo_700_wheel>
+
+
+<xacro:mpo_700_wheel name="mpo_700_wheel_back_left" parent="mpo_700_caster_back_left_link">
+    <origin xyz="-0.05 0. 0.18" rpy="0 0 0" />
+  </xacro:mpo_700_wheel>
+
+
+<xacro:mpo_700_wheel name="mpo_700_wheel_back_right" parent="mpo_700_caster_back_right_link">
+    <origin xyz="-0.05 0. 0.18" rpy="0 0 0" />
+  </xacro:mpo_700_wheel>
+
+  
+<!--cabinet-->
+  <xacro:mmo_700_cabinet name="cabinet" parent="base_link">
+  	<origin xyz="0.072 0 0.35" rpy="0 0 0" />
+  </xacro:mmo_700_cabinet>
+
+  <!-- ************************************ -->
+  <!-- ****** integration ****** -->
+
   <!-- fix the gripper to the arm -->
   <joint name="gripper_base_joint" type="fixed">
-    <parent link="tool0" />
+    <parent link="arm_tool0" />
     <child link = "palm" />
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
   </joint>
 
-  <!-- fix the robot to the world -->
-  <link name="world" />
-
+  <!-- fix the arm to the cabinet -->
   <joint name="arm_base_joint" type="fixed">
-    <parent link="world" />
-    <child link = "base_link" />
-    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+    <parent link="cabinet_link" />
+    <child link = "arm_base_link" />
+    <origin xyz="0.133 0.0 0.416" rpy="0.0 0.0 0.0" />
   </joint>
 
 </robot>

@@ -44,113 +44,129 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        left_inner_finger:
+        arm_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        arm_base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        left_inner_finger_pad:
+        arm_ee_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        left_inner_knuckle:
+        arm_forearm_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        left_outer_finger:
+        arm_shoulder_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        left_outer_knuckle:
+        arm_tool0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        arm_upper_arm_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        right_inner_finger:
+        arm_wrist_1_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        right_inner_finger_pad:
+        arm_wrist_2_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        right_inner_knuckle:
+        arm_wrist_3_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        right_outer_finger:
+        base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        right_outer_knuckle:
+        cabinet_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        robotiq_arg2f_base_link:
+        finger1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        ur10_base:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        ur10_base_link:
+        finger2:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        ur10_ee_link:
+        mpo_700_caster_back_left_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        ur10_forearm_link:
+        mpo_700_caster_back_right_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        ur10_shoulder_link:
+        mpo_700_caster_front_left_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        ur10_tool0:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        ur10_upper_arm_link:
+        mpo_700_caster_front_right_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        ur10_wrist_1_link:
+        mpo_700_wheel_back_left_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        ur10_wrist_2_link:
+        mpo_700_wheel_back_right_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        ur10_wrist_3_link:
+        mpo_700_wheel_front_left_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        world:
+        mpo_700_wheel_front_right_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+          Value: true
+        pad1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        pad2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        palm:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
@@ -193,7 +209,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: world
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:
