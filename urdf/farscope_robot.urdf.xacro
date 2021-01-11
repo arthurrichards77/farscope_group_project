@@ -16,7 +16,7 @@
   <xacro:include filename="$(find ur_description)/urdf/ur10.urdf.xacro" />
 
   <!-- make the arm -->
-  <xacro:ur10_robot prefix="arm_" joint_limited="true"
+  <xacro:ur10_robot prefix="" joint_limited="true"
     shoulder_pan_lower_limit="${-pi}" shoulder_pan_upper_limit="${pi}"
     shoulder_lift_lower_limit="${-pi}" shoulder_lift_upper_limit="${pi}"
     elbow_joint_lower_limit="${-pi}" elbow_joint_upper_limit="${pi}"
@@ -30,8 +30,8 @@
   <!-- ****** build the mobile base ****** -->
   <!-- adapting from neo_simulation:mmo700.urdf.xacro -->
 
-  <!--mmo700 common stuff -->
-  <xacro:include filename="$(find neo_simulation)/robots/mmo_700/urdf/xacros/common.gazebo.xacro" />
+  <!--mmo700 common stuff SKIPPED because it reloads controllers and grasp fix-->
+  <!-- <xacro:include filename="$(find neo_simulation)/robots/mmo_700/urdf/xacros/common.gazebo.xacro" /> -->
 
   <!-- CABINET --> 
   <xacro:include filename="$(find neo_simulation)/robots/mmo_700/urdf/xacros/cabinet.xacro" />
@@ -56,25 +56,41 @@
   <xacro:include filename="$(find neo_simulation)/robots/mmo_700/urdf/xacros/mpo_700_wheel.xacro" />
 
   <!-- Base Macro-->
-  <xacro:mpo_700_base name="base_link">
+  <xacro:mpo_700_base name="mpo_700_base_link">
   </xacro:mpo_700_base>
 
-<xacro:mpo_700_caster_0 name="mpo_700_caster_front_left" parent="base_link">
+  <!-- copied from mpo_700_gazebo.xacro -->
+   <gazebo reference="mpo_700_base_link">
+    <gravity>true</gravity>
+    <self_collide>false</self_collide>
+  </gazebo>
+
+<gazebo>
+    <plugin name="mpo_700_controller" filename="libgazebo_ros_planar_move.so">
+        <commandTopic>cmd_vel</commandTopic>
+        <odometryTopic>odom</odometryTopic>
+        <odometryFrame>odom</odometryFrame>
+        <odometryRate>20.0</odometryRate>
+        <robotBaseFrame>mpo_700_base_link</robotBaseFrame>
+    </plugin>
+</gazebo>
+
+<xacro:mpo_700_caster_0 name="mpo_700_caster_front_left" parent="mpo_700_base_link">
     <origin xyz="0.24 0.18 0.27" rpy="3.14 0 -1.57" />
   </xacro:mpo_700_caster_0>
 
 <!-- Casters -->
-<xacro:mpo_700_caster_1 name="mpo_700_caster_front_right" parent="base_link">
+<xacro:mpo_700_caster_1 name="mpo_700_caster_front_right" parent="mpo_700_base_link">
     <origin xyz="0.24 -0.18 0.27" rpy="3.14 0 1.57" />
   </xacro:mpo_700_caster_1>
 
 
-<xacro:mpo_700_caster_2 name="mpo_700_caster_back_left" parent="base_link">
+<xacro:mpo_700_caster_2 name="mpo_700_caster_back_left" parent="mpo_700_base_link">
     <origin xyz="-0.24 0.18 0.27" rpy="3.14 0 -1.57" />
   </xacro:mpo_700_caster_2>
 
 
-<xacro:mpo_700_caster_3 name="mpo_700_caster_back_right" parent="base_link">
+<xacro:mpo_700_caster_3 name="mpo_700_caster_back_right" parent="mpo_700_base_link">
     <origin xyz="-0.24 -0.18 0.27" rpy="3.14 0 1.57" />
   </xacro:mpo_700_caster_3>
 
@@ -100,7 +116,7 @@
 
   
 <!--cabinet-->
-  <xacro:mmo_700_cabinet name="cabinet" parent="base_link">
+  <xacro:mmo_700_cabinet name="cabinet" parent="mpo_700_base_link">
   	<origin xyz="0.072 0 0.35" rpy="0 0 0" />
   </xacro:mmo_700_cabinet>
 
@@ -108,16 +124,16 @@
   <!-- ****** integration ****** -->
 
   <!-- fix the gripper to the arm -->
-  <joint name="gripper_base_joint" type="fixed">
-    <parent link="arm_tool0" />
+  <joint name="gripper_to_arm" type="fixed">
+    <parent link="tool0" />
     <child link = "palm" />
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
   </joint>
 
   <!-- fix the arm to the cabinet -->
-  <joint name="arm_base_joint" type="fixed">
+  <joint name="arm_to_cabinet" type="fixed">
     <parent link="cabinet_link" />
-    <child link = "arm_base_link" />
+    <child link = "base_link" />
     <origin xyz="0.133 0.0 0.416" rpy="0.0 0.0 0.0" />
   </joint>
 
