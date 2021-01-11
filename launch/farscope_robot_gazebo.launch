@@ -16,6 +16,9 @@
     <arg name="gui" value="$(arg gui)"/>
   </include>
 
+  <!-- spawn a target -->
+  <node name="spawn_gazebo_target" pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find farscope_group_proj)/urdf/target.urdf -model target_1 -x 1.5 -y 1.5 -z 0.0" respawn="false" output="screen" />
+
   <!-- push robot_description to factory and spawn robot in gazebo -->
   <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -z 0.1" respawn="false" output="screen" />
 
