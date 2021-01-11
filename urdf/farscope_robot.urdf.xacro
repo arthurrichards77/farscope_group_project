@@ -47,7 +47,22 @@
   <xacro:include filename="$(find neo_simulation)/robots/mmo_700/urdf/xacros/micro_scan.xacro" /> 
 
   <!-- Gazebo --> 
-  <xacro:include filename="$(find neo_simulation)/robots/mmo_700/urdf/xacros/mpo_700_gazebo.xacro" />
+  <!-- <xacro:include filename="$(find neo_simulation)/robots/mmo_700/urdf/xacros/mpo_700_gazebo.xacro" /> -->
+  <!-- copied from mpo_700_gazebo.xacro -->
+  <gazebo reference="mpo_700_base_link">
+    <gravity>true</gravity>
+    <self_collide>false</self_collide>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="mpo_700_controller" filename="libgazebo_ros_planar_move.so">
+        <commandTopic>cmd_vel</commandTopic>
+        <odometryTopic>odom</odometryTopic>
+        <odometryFrame>odom</odometryFrame>
+        <odometryRate>20.0</odometryRate>
+        <robotBaseFrame>mpo_700_base_link</robotBaseFrame>
+    </plugin>
+  </gazebo>
 
   <!-- Head --> 
   <xacro:include filename="$(find neo_simulation)/robots/mmo_700/urdf/xacros/mpo_700_caster.xacro" />
@@ -59,63 +74,41 @@
   <xacro:mpo_700_base name="mpo_700_base_link">
   </xacro:mpo_700_base>
 
-  <!-- copied from mpo_700_gazebo.xacro -->
-   <gazebo reference="mpo_700_base_link">
-    <gravity>true</gravity>
-    <self_collide>false</self_collide>
-  </gazebo>
-
-<gazebo>
-    <plugin name="mpo_700_controller" filename="libgazebo_ros_planar_move.so">
-        <commandTopic>cmd_vel</commandTopic>
-        <odometryTopic>odom</odometryTopic>
-        <odometryFrame>odom</odometryFrame>
-        <odometryRate>20.0</odometryRate>
-        <robotBaseFrame>mpo_700_base_link</robotBaseFrame>
-    </plugin>
-</gazebo>
-
-<xacro:mpo_700_caster_0 name="mpo_700_caster_front_left" parent="mpo_700_base_link">
+  <!-- Casters -->
+  <xacro:mpo_700_caster_0 name="mpo_700_caster_front_left" parent="mpo_700_base_link">
     <origin xyz="0.24 0.18 0.27" rpy="3.14 0 -1.57" />
   </xacro:mpo_700_caster_0>
 
-<!-- Casters -->
-<xacro:mpo_700_caster_1 name="mpo_700_caster_front_right" parent="mpo_700_base_link">
+  <xacro:mpo_700_caster_1 name="mpo_700_caster_front_right" parent="mpo_700_base_link">
     <origin xyz="0.24 -0.18 0.27" rpy="3.14 0 1.57" />
   </xacro:mpo_700_caster_1>
 
-
-<xacro:mpo_700_caster_2 name="mpo_700_caster_back_left" parent="mpo_700_base_link">
+  <xacro:mpo_700_caster_2 name="mpo_700_caster_back_left" parent="mpo_700_base_link">
     <origin xyz="-0.24 0.18 0.27" rpy="3.14 0 -1.57" />
   </xacro:mpo_700_caster_2>
 
-
-<xacro:mpo_700_caster_3 name="mpo_700_caster_back_right" parent="mpo_700_base_link">
+  <xacro:mpo_700_caster_3 name="mpo_700_caster_back_right" parent="mpo_700_base_link">
     <origin xyz="-0.24 -0.18 0.27" rpy="3.14 0 1.57" />
   </xacro:mpo_700_caster_3>
 
-<!-- wheels -->
-<xacro:mpo_700_wheel name="mpo_700_wheel_front_left" parent="mpo_700_caster_front_left_link">
+  <!-- wheels -->
+  <xacro:mpo_700_wheel name="mpo_700_wheel_front_left" parent="mpo_700_caster_front_left_link">
     <origin xyz="-0.05 0. 0.18" rpy="0 0 0" />
   </xacro:mpo_700_wheel>
 
-
-<xacro:mpo_700_wheel name="mpo_700_wheel_front_right" parent="mpo_700_caster_front_right_link">
+  <xacro:mpo_700_wheel name="mpo_700_wheel_front_right" parent="mpo_700_caster_front_right_link">
     <origin xyz="-0.05 0. 0.18" rpy="0 0 0" />
   </xacro:mpo_700_wheel>
 
-
-<xacro:mpo_700_wheel name="mpo_700_wheel_back_left" parent="mpo_700_caster_back_left_link">
+  <xacro:mpo_700_wheel name="mpo_700_wheel_back_left" parent="mpo_700_caster_back_left_link">
     <origin xyz="-0.05 0. 0.18" rpy="0 0 0" />
   </xacro:mpo_700_wheel>
 
-
-<xacro:mpo_700_wheel name="mpo_700_wheel_back_right" parent="mpo_700_caster_back_right_link">
+  <xacro:mpo_700_wheel name="mpo_700_wheel_back_right" parent="mpo_700_caster_back_right_link">
     <origin xyz="-0.05 0. 0.18" rpy="0 0 0" />
   </xacro:mpo_700_wheel>
 
-  
-<!--cabinet-->
+  <!--cabinet-->
   <xacro:mmo_700_cabinet name="cabinet" parent="mpo_700_base_link">
   	<origin xyz="0.072 0 0.35" rpy="0 0 0" />
   </xacro:mmo_700_cabinet>
