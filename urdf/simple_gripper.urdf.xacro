@@ -56,7 +56,7 @@
     </visual>
     <collision>
       <geometry>
-        <box size="0.006 0.04 0.08"/>
+        <box size="0.020 0.04 0.08"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0.02"/>
     </collision>
@@ -69,7 +69,7 @@
    <joint name="finger${suffix}_to_pad${suffix}" type="fixed">
     <parent link="finger${suffix}"/>
     <child link="pad${suffix}"/>
-    <origin xyz="0.013 0 0.06"/>
+    <origin xyz="0.013 0 0.06" rpy="0 0.1 0"/>
    </joint>
 
    <!-- make the pad squishy -->

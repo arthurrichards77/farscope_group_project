@@ -12,5 +12,10 @@
       <pose>2.0 0.0 0.0 0.0 0.0 -1.5706</pose>
       <static>1</static>
     </include>
+    <include>
+      <uri>model://bookshelf</uri>
+      <pose>0.0 1.0 0.0 -1.5706 0.0 -1.5706</pose>
+      <static>1</static>
+    </include>
   </world>
 </sdf>

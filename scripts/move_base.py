@@ -19,7 +19,7 @@ if len(sys.argv)>=3:
 else:
     y_trans = 0.0
 
-if len(sys.argv)>=3:
+if len(sys.argv)>=4:
     z_rot = float(sys.argv[3])
 else:
     z_rot = 0.0
