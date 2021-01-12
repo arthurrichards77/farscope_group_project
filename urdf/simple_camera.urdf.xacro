@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<robot name="simple_camera" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="camera_size" value="0.05" />
+  <link name="camera_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="${camera_size} ${camera_size} ${camera_size}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="${camera_size} ${camera_size} ${camera_size}"/>
+      </geometry>
+      <material name="cam_body">
+        <color rgba="0.7 0.7 0.8 1" />
+      </material>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <link name="camera_lens">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.02" length="0.01" />
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.02" length="0.01" />
+      </geometry>
+      <material name="cam_lens">
+        <color rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <joint name="camera_to_lens" type="fixed">
+    <parent link="camera_link" />
+    <child link = "camera_lens" />
+    <origin xyz="0.025 0.0 0.0" rpy="0.0 1.5706 0.0" />
+  </joint>
+
+</robot>

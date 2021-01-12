@@ -6,7 +6,6 @@ Panels:
       Expanded:
         - /Global Options1
         - /RobotModel1
-        - /Image1
       Splitter Ratio: 0.5815324187278748
     Tree Height: 424
   - Class: rviz/Selection
@@ -27,7 +26,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: LaserScan
+    SyncSource: ""
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -55,6 +54,11 @@ Visualization Manager:
           Show Trail: false
           Value: true
         cabinet_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        camera_lens:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -290,25 +294,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 6.137575626373291
+      Distance: 0.8389584422111511
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.6524396538734436
-        Y: -1.359846830368042
-        Z: 0.4594894051551819
+        X: 1.1225942373275757
+        Y: 0.05148087069392204
+        Z: 0.8426008224487305
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.38520315289497375
+      Pitch: 0.4852031469345093
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.3472298383712769
+      Yaw: 5.825411796569824
     Saved: ~
 Window Geometry:
   Displays:
