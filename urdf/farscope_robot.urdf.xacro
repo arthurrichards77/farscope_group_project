@@ -218,4 +218,12 @@
     <origin xyz="0.133 0.0 0.416" rpy="0.0 0.0 0.0" />
   </joint>
 
+  <!-- dummy link to avoid inertia warning -->
+  <link name="dummy_base" />
+  <joint name="dummy_joint" type="fixed">
+    <parent link="dummy_base" />
+    <child link = "mpo_700_base_link" />
+  </joint>
+
+
 </robot>
