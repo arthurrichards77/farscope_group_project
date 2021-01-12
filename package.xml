@@ -49,13 +49,13 @@
   <!-- Use doc_depend for packages you need only for building documentation: -->
   <!--   <doc_depend>doxygen</doc_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>robotiq_2f_85_gripper_visualization</build_depend>
+  <build_depend>neo_simulation</build_depend>
   <build_depend>rospy</build_depend>
   <build_depend>ur_gazebo</build_depend>
-  <build_export_depend>robotiq_2f_85_gripper_visualization</build_export_depend>
+  <build_export_depend>neo_simulation</build_export_depend>
   <build_export_depend>rospy</build_export_depend>
   <build_export_depend>ur_gazebo</build_export_depend>
-  <exec_depend>robotiq_2f_85_gripper_visualization</exec_depend>
+  <exec_depend>neo_simulation</exec_depend>
   <exec_depend>rospy</exec_depend>
   <exec_depend>ur_gazebo</exec_depend>
 

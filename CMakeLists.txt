@@ -8,7 +8,7 @@ project(farscope_group_proj)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  robotiq_2f_85_gripper_visualization
+  neo_simulation
   rospy
   ur_gazebo
 )
@@ -105,7 +105,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES farscope_group_proj
-#  CATKIN_DEPENDS robotiq_2f_85_gripper_visualization rospy ur_gazebo
+#  CATKIN_DEPENDS neo_simulation rospy ur_gazebo
 #  DEPENDS system_lib
 )
 
