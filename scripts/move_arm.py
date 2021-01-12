@@ -1,12 +1,28 @@
 #!/usr/bin/env python
+import sys
 import roslib
 roslib.load_manifest('farscope_group_proj')
 import rospy
+from math import pi
 from trajectory_msgs.msg import JointTrajectory,JointTrajectoryPoint
 from control_msgs.msg import FollowJointTrajectoryGoal, FollowJointTrajectoryAction
 from actionlib import SimpleActionClient
 
-rospy.init_node("simple_traj")
+if len(sys.argv)>=2:
+  shoulder_lift_cmd = float(sys.argv[1])
+else:
+  shoulder_lift_cmd = 0.0
+
+if len(sys.argv)>=3:
+  elbow_cmd = float(sys.argv[2])
+else:
+  elbow_cmd = 0.0
+
+wrist_1_cmd = (-1)*(shoulder_lift_cmd + elbow_cmd)
+
+wrist_2_cmd = 0.5*pi
+
+rospy.init_node("move_arm")
 client = SimpleActionClient("/arm_controller/follow_joint_trajectory", FollowJointTrajectoryAction)
 
 print "waiting to connect..."
@@ -18,22 +34,13 @@ g.trajectory = JointTrajectory()
 g.trajectory.joint_names = ['shoulder_pan_joint', 'shoulder_lift_joint', 'elbow_joint', 'wrist_1_joint', 'wrist_2_joint', 'wrist_3_joint']
 
 p1 = JointTrajectoryPoint()
-p1.positions = [1.5, -0.2, -1.57, 0, 0 ,0]
+p1.positions = [0.0, shoulder_lift_cmd, elbow_cmd, wrist_1_cmd, wrist_2_cmd, 0.0]
 p1.velocities = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 p1.time_from_start = rospy.Duration(5.0)
 g.trajectory.points.append(p1)
 
-p2 = JointTrajectoryPoint()
-p2.positions = [1.5, 0, -1.57, 0, 0 ,0]
-p2.velocities = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-p2.time_from_start = rospy.Duration(10.0)
-g.trajectory.points.append(p2)
-
-p3 = JointTrajectoryPoint()
-p3.positions = [2.2, 0, -1.57, 0, 0 ,0]
-p3.velocities = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-p3.time_from_start = rospy.Duration(15.0)
-g.trajectory.points.append(p3)
+print(g.trajectory.joint_names)
+print(p1.positions)
 
 client.send_goal(g)
 print "sent the goal"
