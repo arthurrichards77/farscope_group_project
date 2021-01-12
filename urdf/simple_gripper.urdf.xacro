@@ -7,6 +7,9 @@
         <box size="0.2 0.1 0.04" />
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0.02"/>
+      <material name="palm">
+        <color rgba="1 0.5 0 1" />
+      </material>
     </visual>
     <collision>
       <geometry>
@@ -19,7 +22,9 @@
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
   </link>
-
+  <gazebo reference="palm">
+    <material>Gazebo/Orange</material>
+  </gazebo>
 
   <xacro:macro name="finger" params="suffix">
    <link name="finger${suffix}">
@@ -29,7 +34,7 @@
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0.06"/>
       <material name="fing">
-        <color rgba="0.6 0.6 0.8 1" />
+        <color rgba="1 0.5 0 1" />
       </material>
     </visual>
     <collision>
@@ -43,11 +48,14 @@
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
    </link>
+   <gazebo reference="finger${suffix}">
+     <material>Gazebo/Orange</material>
+   </gazebo>
 
    <link name="pad${suffix}">
     <visual>
       <geometry>
-        <box size="0.006 0.04 0.08"/>
+        <box size="0.02 0.04 0.08"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0.02"/>
       <material name="pad">
@@ -56,7 +64,7 @@
     </visual>
     <collision>
       <geometry>
-        <box size="0.020 0.04 0.08"/>
+        <box size="0.02 0.04 0.08"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0.02"/>
     </collision>
@@ -65,6 +73,9 @@
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
    </link>
+   <gazebo reference="pad${suffix}">
+     <material>Gazebo/Grey</material>
+   </gazebo>
 
    <joint name="finger${suffix}_to_pad${suffix}" type="fixed">
     <parent link="finger${suffix}"/>

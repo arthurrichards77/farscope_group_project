@@ -23,4 +23,9 @@
       </collision>
 
     </link>
+
+    <gazebo reference="link_0">
+        <material>Gazebo/Yellow</material>
+    </gazebo>
+
 </robot>

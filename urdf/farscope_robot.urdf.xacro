@@ -200,7 +200,7 @@
   <!--Camera  -->
   <xacro:include filename="$(find neo_simulation)/robots/mmo_700/urdf/xacros/camera.xacro" />
   <xacro:camera name="camera" parent="forearm_link" >
-    <origin xyz="0 -0.08 0.38" rpy="0 0 0" />
+    <origin xyz="0 -0.08 0.38" rpy="0 -1.5706 0" />
   </xacro:camera>
   
   <!-- ************************************ -->
