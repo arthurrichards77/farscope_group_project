@@ -9,7 +9,7 @@
     </include>
     <include>
       <uri>model://bookshelf</uri>
-      <pose>2.0 0.0 0.0 0.0 0.0 -1.5706</pose>
+      <pose>2.3 0.0 0.0 0.0 0.0 -1.5706</pose>
       <static>1</static>
     </include>
     <include>
