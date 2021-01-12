@@ -9,12 +9,7 @@
     </include>
     <include>
       <uri>model://bookshelf</uri>
-      <pose>0.0 -1.0 0.0 0.0 0.0 3.14159</pose>
-      <static>1</static>
-    </include>
-    <include>
-      <uri>model://euro_pallet</uri>
-      <pose>1.0 0.0 0.07 0.0 0.0 0.0</pose>
+      <pose>2.0 0.0 0.0 0.0 0.0 -1.5706</pose>
       <static>1</static>
     </include>
   </world>

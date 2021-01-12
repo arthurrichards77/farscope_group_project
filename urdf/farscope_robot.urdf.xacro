@@ -155,6 +155,8 @@
         </sensor>
   </gazebo>
 
+  <!-- camera gazebo stuff -->
+  <!-- comes first as "include" defines a camera macro, clashing in xacro with the camera block of the following -->
   <gazebo reference="camera_link">
     <sensor type="camera" name="camera1">
       <update_rate>30.0</update_rate>
