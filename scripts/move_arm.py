@@ -11,11 +11,10 @@ from actionlib import SimpleActionClient
 class ArmMover:
     """Client to move the robot arm"""
     def __init__(self):
-        rospy.init_node("move_arm")
         self.client = SimpleActionClient("/arm_controller/follow_joint_trajectory", FollowJointTrajectoryAction)
-        print "waiting to connect..."
+        rospy.loginfo("waiting to connect...")
         self.client.wait_for_server()
-        print "connected! "
+        rospy.loginfo("connected! ")
         self.joint_names = ['shoulder_pan_joint', 'shoulder_lift_joint', 'elbow_joint', 'wrist_1_joint', 'wrist_2_joint', 'wrist_3_joint']
 
     def move(self, shoulder_lift_cmd_in = -pi/4.0, elbow_cmd_in = pi/2.0, duration_in = 5.0):
@@ -30,12 +29,13 @@ class ArmMover:
         p1.time_from_start = rospy.Duration(duration_in)
         g.trajectory.points.append(p1)
         self.client.send_goal(g)
-        print "sent the goal"
-        print "waiting to get there"
+        rospy.loginfo( "sent the goal")
+        rospy.loginfo( "waiting to get there")
         self.client.wait_for_result()
-        print "got there"
+        rospy.loginfo( "got there")
 
 if __name__=='__main__':
+    rospy.init_node("move_arm")
     m = ArmMover()
     if len(sys.argv)>=2:
         shoulder_lift_cmd = float(sys.argv[1])

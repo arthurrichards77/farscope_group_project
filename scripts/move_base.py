@@ -9,14 +9,13 @@ class BaseDriver:
     """Utility for moving the mobile base"""
     def __init__(self):
         self.pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
-        rospy.init_node('move_base', anonymous=True)
 
-    def move(self, x_trans_in, y_trans_in, z_rot_in, duration_in=1.0):
+    def move(self, x_trans_in, y_trans_in=0.0, z_rot_in=0.0, duration_in=1.0):
         cmd = Twist()
         cmd.linear.x = x_trans_in
         cmd.linear.y = y_trans_in
         cmd.angular.z = z_rot_in
-        rospy.loginfo('Sending dX={}, dY={}, dT={}'.format(x_trans,y_trans,z_rot))
+        rospy.loginfo('Sending dX={}, dY={}, dT={} for {}s'.format(x_trans_in,y_trans_in,z_rot_in,duration_in))
         r=rospy.Rate(10)
         for ii in range(int(10*duration_in)):
             r.sleep()
@@ -28,6 +27,7 @@ class BaseDriver:
             self.pub.publish(cmd)
 
 if __name__=='__main__':
+    rospy.init_node('move_base', anonymous=True)
     if len(sys.argv)>=2:
         x_trans = float(sys.argv[1])
     else:
