@@ -26,16 +26,20 @@
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
     </inertial>
   </link>
+  <gazebo reference="camera_link">
+    <material>Gazebo/Turquoise</material>
+  </gazebo>
 
   <link name="camera_lens">
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 1.5706 0.0" />
       <geometry>
         <cylinder radius="0.02" length="0.01" />
       </geometry>
     </collision>
 
     <visual>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 1.5706 0.0" />
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <cylinder radius="0.02" length="0.01" />
@@ -47,15 +51,19 @@
 
     <inertial>
       <mass value="1e-5" />
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 1.5706 0.0" />
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
     </inertial>
   </link>
+  <gazebo reference="camera_lens">
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
 
   <joint name="camera_to_lens" type="fixed">
     <parent link="camera_link" />
     <child link = "camera_lens" />
-    <origin xyz="0.025 0.0 0.0" rpy="0.0 1.5706 0.0" />
+    <origin xyz="0.03 0 0" rpy="0 0 0"/>
   </joint>
 
 </robot>
