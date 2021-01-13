@@ -17,5 +17,23 @@
       <pose>0.0 1.0 0.0 -1.5706 0.0 -1.5706</pose>
       <static>1</static>
     </include>
+    <include>
+      <uri>model://construction_cone</uri>
+      <name>static_cone_1</name>
+      <pose>-2.0 1.0 0 0 0 0</pose>
+      <static>1</static>
+    </include>
+    <include>
+      <uri>model://construction_cone</uri>
+      <name>static_cone_2</name>
+      <pose>-3.0 1.0 0 0 0 0</pose>
+      <static>1</static>
+    </include>
+    <include>
+      <uri>model://construction_cone</uri>
+      <name>static_cone_3</name>
+      <pose>-1.0 1.0 0 0 0 0</pose>
+      <static>1</static>
+    </include>
   </world>
 </sdf>

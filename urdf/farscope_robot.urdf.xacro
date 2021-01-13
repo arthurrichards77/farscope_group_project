@@ -181,6 +181,7 @@
   <joint name="dummy_joint" type="fixed">
     <parent link="dummy_base" />
     <child link = "mpo_700_base_link" />
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
   </joint>
 
   <xacro:arg name="camera_parent_link" default="forearm_link" />
