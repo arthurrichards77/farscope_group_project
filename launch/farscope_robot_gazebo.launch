@@ -23,14 +23,24 @@
     <arg name="gui" value="$(arg gui)"/>
   </include>
 
+  <!-- load target description URDF into parameter -->
+  <param name="target_description" textfile="$(find farscope_group_proj)/urdf/target.urdf" />  
+
+  <!-- load scenario parameter -->
+  <rosparam command="load" file="$(find farscope_group_proj)/scenarios/scenario_all.yaml" />
+
   <!-- spawn targets -->
+  <node name="spawn_targets" pkg="farscope_group_proj" type="spawn_targets.py" />
+
+  <!-- 
   <node name="spawn_gazebo_target_1" pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find farscope_group_proj)/urdf/target.urdf -model target_1 -x 2.0 -y 0.0 -z 0.06" respawn="false" output="screen" />
   <node name="spawn_gazebo_target_2" pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find farscope_group_proj)/urdf/target.urdf -model target_2 -x 2.0 -y 0.0 -z 0.43" respawn="false" output="screen" />
   <node name="spawn_gazebo_target_3" pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find farscope_group_proj)/urdf/target.urdf -model target_3 -x 2.0 -y 0.0 -z 0.81" respawn="false" output="screen" />
   <node name="spawn_gazebo_target_4" pkg="gazebo_ros" type="spawn_model" args="-urdf -file $(find farscope_group_proj)/urdf/target.urdf -model target_4 -x 2.0 -y 0.0 -z 1.21" respawn="false" output="screen" />
+  -->
 
   <!-- spawn SDF obstacle -->
-  <node name="spawn_gazebo_cone_1" pkg="gazebo_ros" type="spawn_model" args="-sdf -database construction_cone -model cone_1 -y -3" respawn="false" output="screen" />
+  <node name="spawn_gazebo_cone_1" pkg="gazebo_ros" type="spawn_model" args="-sdf -database construction_cone -model cone_1 -y -8" respawn="false" output="screen" />
 
   <!-- push robot_description to factory and spawn robot in gazebo -->
   <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot" respawn="false" output="screen" />
