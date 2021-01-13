@@ -2,9 +2,16 @@
 
 <launch>
 
-  <!-- get robot desc URDF into parameter --> 
-  <param name="robot_description" command="$(find xacro)/xacro $(find farscope_group_proj)/urdf/farscope_robot.urdf.xacro use_grasp_fix:=False" />  
-  
+  <arg name="camera_parent_link" default="forearm_link" />
+  <arg name="camera_origin_xyz" default="0 -0.08 0.38" />
+  <arg name="camera_origin_rpy" default="0 -1.5706 0" />
+
+  <include file="$(find farscope_group_proj)/launch/farscope_robot_description.launch" >
+    <arg name="camera_parent_link" value="$(arg camera_parent_link)" />
+    <arg name="camera_origin_xyz" value="$(arg camera_origin_xyz)" />
+    <arg name="camera_origin_rpy" value="$(arg camera_origin_rpy)" />
+  </include>
+
   <!-- launching gazebo (copied from ur_gazebo/ur10.launch) -->
   <arg name="paused" default="false" doc="Starts gazebo in paused mode" />
   <arg name="gui" default="true" doc="Starts gazebo gui" />
@@ -25,8 +32,9 @@
   <!-- push robot_description to factory and spawn robot in gazebo -->
   <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot" respawn="false" output="screen" />
 
-  <!-- start robot state pub and joint state from gazebo -->
-  <include file="$(find ur_gazebo)/launch/controller_utils.launch"/>
+  <!-- joint_state_controller -->
+  <rosparam file="$(find ur_gazebo)/controller/joint_state_controller.yaml" command="load"/>
+  <node name="joint_state_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn joint_state_controller" respawn="false" output="screen"/>
   
   <!-- start UR10 controller -->
   <rosparam file="$(find ur_gazebo)/controller/arm_controller_ur10.yaml" command="load"/>

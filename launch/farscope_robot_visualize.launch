@@ -2,10 +2,18 @@
 
 <launch>
   
-  <param name="robot_description" command="$(find xacro)/xacro $(find farscope_group_proj)/urdf/farscope_robot.urdf.xacro" />  
-  
-  <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <arg name="camera_parent_link" default="forearm_link" />
+  <arg name="camera_origin_xyz" default="0 -0.08 0.38" />
+  <arg name="camera_origin_rpy" default="0 -1.5706 0" />
 
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find farscope_group_proj)/visualize.rviz" required="true" />
+  <include file="$(find farscope_group_proj)/launch/farscope_robot_description.launch" >
+    <arg name="camera_parent_link" value="$(arg camera_parent_link)" />
+    <arg name="camera_origin_xyz" value="$(arg camera_origin_xyz)" />
+    <arg name="camera_origin_rpy" value="$(arg camera_origin_rpy)" />
+  </include>
+
+  <include file="$(find farscope_group_proj)/launch/farscope_robot_rviz.launch" />
+
+  <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
+
 </launch>
