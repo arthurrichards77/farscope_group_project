@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+
+<launch>
+
+  <include file="$(find farscope_group_proj)/launch/farscope_robot_gazebo.launch" >
+    <arg name="camera_parent_link" value="upper_arm_link"/>
+    <arg name="camera_origin_xyz" value="0 0 0.7"/>
+    <arg name="camera_origin_rpy" value="0 -0.75 0"/>
+  </include>
+
+  <include file="$(find farscope_group_proj)/launch/farscope_robot_rviz.launch" />
+
+  <node name="robot_controller" pkg="farscope_group_proj" type="test_pickup.py" />
+
+</launch>

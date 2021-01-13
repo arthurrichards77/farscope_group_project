@@ -25,6 +25,8 @@ arm_mover.move(shoulder_lift_cmd_in=-0.7, elbow_cmd_in=1.0)
 base_driver.move(-0.3,0,0,2)
 # turn base to get target over the receptacle
 base_driver.move(0,0,0.2,6)
+# forward a bit
+base_driver.move(0.1)
 # release gripper
 gripper_controller.open()
 # little nudge to drop it
