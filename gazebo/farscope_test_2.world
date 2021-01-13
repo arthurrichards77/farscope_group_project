@@ -7,32 +7,91 @@
     <include>
       <uri>model://sun</uri>
     </include>
+
     <include>
       <uri>model://bookshelf</uri>
+      <name>shelf_1</name>
       <pose>2.3 0.0 0.0 0.0 0.0 -1.5706</pose>
       <static>1</static>
     </include>
     <include>
       <uri>model://bookshelf</uri>
-      <pose>0.0 1.0 0.0 -1.5706 0.0 -1.5706</pose>
+      <name>shelf_2</name>
+      <pose>2.3 -1.5 0.0 0.0 0.0 -1.5706</pose>
       <static>1</static>
     </include>
     <include>
+      <uri>model://bookshelf</uri>
+      <name>shelf_3</name>
+      <pose>2.3 -3.0 0.0 0.0 0.0 -1.5706</pose>
+      <static>1</static>
+    </include>
+    <include>
+      <uri>model://bookshelf</uri>
+      <name>shelf_4</name>
+      <pose>1.0 -4.3 0.0 0.0 0.0 -3.1416</pose>
+      <static>1</static>
+    </include>
+    <include>
+      <uri>model://bookshelf</uri>
+      <name>shelf_5</name>
+      <pose>-0.5 -4.3 0.0 0.0 0.0 -3.1416</pose>
+      <static>1</static>
+    </include>
+    <include>
+      <uri>model://bookshelf</uri>
+      <name>shelf_6</name>
+      <pose>-2.0 -4.3 0.0 0.0 0.0 -3.1416</pose>
+      <static>1</static>
+    </include>
+    <include>
+      <uri>model://bookshelf</uri>
+      <name>shelf_7</name>
+      <pose>-3.3 -3.0 0.0 0.0 0.0 1.5706</pose>
+      <static>1</static>
+    </include>
+    <include>
+      <uri>model://bookshelf</uri>
+      <name>shelf_8</name>
+      <pose>-2.0 -0.7 0.0 0.0 0.0 0.0</pose>
+      <static>1</static>
+    </include>
+
+    <include>
+      <uri>model://bookshelf</uri>
+      <name>drop_off</name>
+      <pose>1.0 1.0 0.0 -1.5706 0.0 0.0</pose>
+      <static>1</static>
+    </include>
+
+    <include>
       <uri>model://construction_cone</uri>
       <name>static_cone_1</name>
-      <pose>-2.0 1.0 0 0 0 0</pose>
+      <pose>0.0 1.0 0 0 0 0</pose>
       <static>1</static>
     </include>
     <include>
       <uri>model://construction_cone</uri>
       <name>static_cone_2</name>
-      <pose>-3.0 1.0 0 0 0 0</pose>
+      <pose>-1.0 1.0 0 0 0 0</pose>
       <static>1</static>
     </include>
     <include>
       <uri>model://construction_cone</uri>
       <name>static_cone_3</name>
-      <pose>-1.0 1.0 0 0 0 0</pose>
+      <pose>-2.0 1.0 0 0 0 0</pose>
+      <static>1</static>
+    </include>
+    <include>
+      <uri>model://construction_cone</uri>
+      <name>static_cone_4</name>
+      <pose>-2.0 0.0 0 0 0 0</pose>
+      <static>1</static>
+    </include>
+    <include>
+      <uri>model://construction_cone</uri>
+      <name>static_cone_5</name>
+      <pose>-3.0 -1.5 0 0 0 0</pose>
       <static>1</static>
     </include>
   </world>
