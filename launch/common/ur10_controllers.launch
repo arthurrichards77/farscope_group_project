@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+
+<launch>
+
+  <!-- joint_state_controller for the UR10 -->
+  <rosparam file="$(find ur_gazebo)/controller/joint_state_controller.yaml" command="load"/>
+  <node name="joint_state_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn joint_state_controller" respawn="false" output="screen"/>
+  
+  <!-- start UR10 controller -->
+  <rosparam file="$(find ur_gazebo)/controller/arm_controller_ur10.yaml" command="load"/>
+  <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn arm_controller" respawn="false" output="screen"/>
+
+</launch>

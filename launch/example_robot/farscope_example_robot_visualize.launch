@@ -8,6 +8,6 @@
 
   <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
 
-  <include file="$(find farscope_group_proj)/launch/farscope_robot_rviz.launch" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find farscope_group_proj)/launch/example_robot/visualize.rviz" required="True" />
 
 </launch>

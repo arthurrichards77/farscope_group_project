@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+
+<launch>
+
+  <!-- launch Gazebo in the Group Challenge world with optional GUI view -->
+  <arg name="use_gui" default="true" />
+  <include file="$(find farscope_group_proj)/launch/challenge/farscope_group_challenge_gazebo.launch">
+    <arg name="gui" value="$(arg use_gui)" />
+  </include>
+
+  <!-- load the example robot description-->
+  <param name="robot_description" command="$(find xacro)/xacro $(find farscope_group_proj)/models/example_robot/farscope_example_robot.urdf.xacro" />
+
+  <!-- need a robot state publisher to translate joints into TF information -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot" respawn="false" output="screen" />
+
+  <!-- start controllers for the UR10 arm and the simple gripper -->
+  <include file="$(find farscope_group_proj)/launch/common/ur10_controllers.launch" />
+  <include file="$(find farscope_group_proj)/launch/common/gripper_controller.launch" />
+
+  <!-- run example controller -->
+  <node name="robot_controller" pkg="farscope_group_proj" type="test_pickup.py" />
+
+  <!-- optional RViz is very CPU hungry : use `roslaunch farscope_example_robot_simulate use_rviz:=true` to include it anyway -->
+  <arg name="use_rviz" default="false" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find farscope_group_proj)/launch/example_robot/simulate.rviz" if="$(arg use_rviz)" />
+
+</launch>

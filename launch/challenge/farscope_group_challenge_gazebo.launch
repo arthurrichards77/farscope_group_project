@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<launch>
+
+  <!-- launching gazebo (copied from ur_gazebo/ur10.launch) -->
+  <arg name="paused" default="false" doc="Starts gazebo in paused mode" />
+  <arg name="gui" default="true" doc="Starts gazebo gui" />
+  
+  <!-- startup simulated world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" default="$(find farscope_group_proj)/worlds/farscope_test_2.world"/>
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="gui" value="$(arg gui)"/>
+  </include>
+
+  <!-- load target description URDF into parameter -->
+  <param name="target_description" textfile="$(find farscope_group_proj)/models/target/target.urdf" />  
+
+  <!-- load scenario parameter -->
+  <rosparam command="load" file="$(find farscope_group_proj)/scenarios/scenario_all.yaml" />
+
+  <!-- spawn targets -->
+  <node name="spawn_targets" pkg="farscope_group_proj" type="spawn_targets.py" />
+
+  <!-- spawn SDF obstacle -->
+  <node name="spawn_gazebo_cone_1" pkg="gazebo_ros" type="spawn_model" args="-sdf -database construction_cone -model cone_1 -y -8" respawn="false" output="screen" />
+
+</launch>
