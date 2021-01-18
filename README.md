@@ -25,5 +25,5 @@ The package was developed in ROS Melodic using Gazebo 9.0.0 on Ubuntu 18.04.  It
 
 * If you don't have it already, install ROS Melodic and set up a workspace using [these instructions](http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment)
 * Clone this package and the two packages above into the workspace `src` directory
-* Run `roslaunch farscope_group_proj farscope_example_robot_visualize.launch`.  You should see an RViz visualization of the robot.
-* Run `roslaunch farscope_group_proj farscope_example_robot_simulate.launch`.  You should see a Gazebo simulation of the robot picking a target of a shelf and dropping it.
+* Run `roslaunch farscope_group_project farscope_example_robot_visualize.launch`.  You should see an RViz visualization of the robot.
+* Run `roslaunch farscope_group_project farscope_example_robot_simulate.launch`.  You should see a Gazebo simulation of the robot picking a target of a shelf and dropping it.
