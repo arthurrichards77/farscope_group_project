@@ -2,11 +2,7 @@
 
 <launch>
   
-  <arg name="camera_parent_link" default="forearm_link" />
-  <arg name="camera_origin_xyz" default="0 -0.08 0.38" />
-  <arg name="camera_origin_rpy" default="0 -1.5706 0" />
-
-  <param name="robot_description" command="$(find xacro)/xacro $(find farscope_group_proj)/models/example_robot/farscope_example_robot.urdf.xacro camera_parent_link:='$(arg camera_parent_link)' camera_origin_xyz:='$(arg camera_origin_xyz)' camera_origin_rpy:='$(arg camera_origin_rpy)'" />  
+  <param name="robot_description" command="$(find xacro)/xacro $(find farscope_group_proj)/models/example_robot/farscope_example_robot.urdf.xacro" />  
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 

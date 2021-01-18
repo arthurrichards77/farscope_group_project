@@ -13,18 +13,15 @@
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
   </xacro:simple_gripper>
 
-  <!-- ************************************ -->
-  <!-- ****** camera ****** -->
+  <!-- ****** cameras ****** -->
   <xacro:include filename="$(find farscope_group_proj)/models/camera/simple_camera.urdf.xacro" />
   
-  <xacro:arg name="camera_parent_link" default="forearm_link" />
-  <xacro:arg name="camera_origin_xyz" default="0 -0.08 0.38" />
-  <xacro:arg name="camera_origin_rpy" default="0 -1.5706 0" />
+  <xacro:simple_camera camera_name="camera1" parent_link="forearm_link" >
+    <origin xyz="0 -0.08 0.38" rpy="0 -1.5706 0" />
+  </xacro:simple_camera>
 
-  <joint name="camera_to_robot" type="fixed">
-    <parent link="$(arg camera_parent_link)" />
-    <child link = "camera_link" />
-    <origin xyz="$(arg camera_origin_xyz)" rpy="$(arg camera_origin_rpy)" />
-  </joint>
+  <xacro:simple_camera camera_name="camera2" parent_link="upper_arm_link" >
+    <origin xyz="0 0 0.7" rpy="0 -0.75 0" />
+  </xacro:simple_camera>
 
 </robot>
