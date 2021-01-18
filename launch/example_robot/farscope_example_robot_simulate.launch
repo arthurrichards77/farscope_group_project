@@ -1,8 +1,11 @@
 <?xml version="1.0" ?>
 
+<!-- simulate example robot with example controller in the challenge scenario -->
+
 <launch>
 
-  <!-- launch Gazebo in the Group Challenge world with optional GUI view -->
+  <!-- launch Gazebo in the Group Challenge world -->
+  <!-- use `roslaunch farscope_example_robot_simulate use_gui:=false` to turn off Gazebo GUI -->-->
   <arg name="use_gui" default="true" />
   <include file="$(find farscope_group_proj)/launch/challenge/farscope_group_challenge_gazebo.launch">
     <arg name="gui" value="$(arg use_gui)" />

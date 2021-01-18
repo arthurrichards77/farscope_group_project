@@ -1,5 +1,7 @@
 <?xml version="1.0" ?>
 
+<!-- look at the example robot in RViz and play with its joints -->
+
 <launch>
   
   <param name="robot_description" command="$(find xacro)/xacro $(find farscope_group_proj)/models/example_robot/farscope_example_robot.urdf.xacro" />  
