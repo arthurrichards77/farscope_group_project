@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(farscope_group_proj)
+project(farscope_group_project)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   neo_simulation
   rospy
   ur_gazebo
+  ur_description
 )
 
 ## System dependencies are found with CMake's conventions
