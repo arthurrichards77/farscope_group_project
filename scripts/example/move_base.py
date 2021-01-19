@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import roslib
-roslib.load_manifest('farscope_group_proj')
+roslib.load_manifest('farscope_group_project')
 import rospy
 from geometry_msgs.msg import Twist
 import sys

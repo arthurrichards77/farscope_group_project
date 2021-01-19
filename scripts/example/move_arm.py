@@ -6,7 +6,7 @@ from math import pi
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from control_msgs.msg import FollowJointTrajectoryGoal, FollowJointTrajectoryAction
 from actionlib import SimpleActionClient
-roslib.load_manifest('farscope_group_proj')
+roslib.load_manifest('farscope_group_project')
 
 
 class ArmMover:
