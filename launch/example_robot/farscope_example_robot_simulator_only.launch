@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+
+<!-- simulate example robot with example controller in the challenge scenario -->
+
+<launch>
+
+  <!-- launch Gazebo in the Group Challenge world -->
+  <!-- use `roslaunch farscope_example_robot_simulate use_gui:=false` to turn off Gazebo GUI -->-->
+  <arg name="use_gui" default="false" />
+  <include file="$(find farscope_group_project)/launch/challenge/farscope_group_challenge_gazebo.launch">
+    <arg name="gui" value="$(arg use_gui)" />
+  </include>
+
+  <!-- load the example robot description-->
+  <param name="robot_description" command="$(find xacro)/xacro $(find farscope_group_project)/models/example_robot/farscope_example_robot.urdf.xacro" />
+
+  <!-- need a robot state publisher to translate joints into TF information -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot" respawn="false" output="screen" />
+
+  <!-- start controllers for the UR10 arm and the simple gripper -->
+  <include file="$(find farscope_group_project)/launch/common/ur10_controllers.launch" />
+  <include file="$(find farscope_group_project)/launch/common/gripper_controller.launch" />
+
+</launch>
