@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>farscope_group_proj</name>
+  <name>farscope_group_project</name>
   <version>0.0.0</version>
-  <description>The farscope_group_proj package</description>
+  <description>The farscope_group_project package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
@@ -13,19 +13,20 @@
   <!-- One license tag required, multiple allowed, one license per tag -->
   <!-- Commonly used license strings: -->
   <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
-  <license>TODO</license>
+  <license>GPLv3</license>
 
 
   <!-- Url tags are optional, but multiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/farscope_group_proj</url> -->
+  <url type="website">http://farscope.bris.ac.uk</url>
+  <url type="website">http://brl.ac.uk</url>
 
 
   <!-- Author tags are optional, multiple are allowed, one per tag -->
   <!-- Authors do not have to be maintainers, but could be -->
   <!-- Example: -->
-  <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
+  <author email="arthur.richards@bristol.ac.uk">Arthur Richards</author>
 
 
   <!-- The *depend tags are used to specify dependencies -->
@@ -52,12 +53,15 @@
   <build_depend>neo_simulation</build_depend>
   <build_depend>rospy</build_depend>
   <build_depend>ur_gazebo</build_depend>
+  <build_depend>ur_description</build_depend>
   <build_export_depend>neo_simulation</build_export_depend>
   <build_export_depend>rospy</build_export_depend>
   <build_export_depend>ur_gazebo</build_export_depend>
+  <build_export_depend>ur_description</build_export_depend>
   <exec_depend>neo_simulation</exec_depend>
   <exec_depend>rospy</exec_depend>
   <exec_depend>ur_gazebo</exec_depend>
+  <exec_depend>ur_description</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
