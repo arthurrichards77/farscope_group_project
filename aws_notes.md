@@ -17,6 +17,13 @@ For the control app:
 For the simulation app:
 * Skipped 1 to 5 as already done *apart from* changing Gazebo GUI default to `false` in the simulator-only launch file.
 
+I also needed to add the following to the CMakeLists.txt of the `neo_simulation` package so my built package could access its contents:
+```
+install(DIRECTORY launch scripts robots
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
+```
+
 Then moving on to [these instructions](https://docs.aws.amazon.com/robomaker/latest/dg/application-build-bundle.html#install-colcon) to install the `colcon` build tool.  I had to `sudo` the two `apt` installs but I did the `pip3` installs as local user, which worked OK but put the executable in `~/.local/bin/`.  A warning message said I ought to add that to my path, but for now I'm leaving it as is.
 
 Also ensured relevant directories were included in the `install` directive mentioned.  Found by trial and error, but not sure this was key in the end.
