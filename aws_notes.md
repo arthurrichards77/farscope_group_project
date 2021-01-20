@@ -4,6 +4,8 @@ Notes on attempts to get this simulation deployed to AWS Robomaker, following [D
 
 ## Building it: local Linux work
 
+### Preparing the Workspace
+
 AWS separates the simulation application from the robot (controller) application.  However, since I've got a package with both, I decided there'd just be one application bundle.  I *think* you can separate the apps again later by specifying different launch files on AWS.  Therefore I started by creating two separate launch files: one for the example robot and similator only, and one for the controller.
 
 Following [these instructions](https://docs.aws.amazon.com/robomaker/latest/dg/application-create-new.html):
@@ -26,11 +28,21 @@ install(DIRECTORY launch scripts robots
 )
 ```
 
+### Preparing to Build
+
 Then moving on to [these instructions](https://docs.aws.amazon.com/robomaker/latest/dg/application-build-bundle.html#install-colcon) to install the `colcon` build tool.  I had to `sudo` the two `apt` installs but I did the `pip3` installs as local user, which worked OK but put the executable in `~/.local/bin/`.  A warning message said I ought to add that to my path, but for now I'm leaving it as is.
 
 Also ensured relevant directories were included in the `install` directive mentioned.  Found by trial and error, but not sure this was key in the end.
 
-Next move to the workspace root directory (so `cd ../..` from the package directory) and run `~/.local/bin/colcon build`.  I had to delete the `build` directory first as that had been done by `catkin_make` and `colcon` complained.  Might be a workaround. 
+### Building the Workspace
+
+* Start in a new terminal with no ROS awarness and move to the workspace root directory (so `cd ../..` from the package directory)
+* Delete the `build` `install` `bundle` directories
+* Run `source /opt/ros/melodic/setup.bash`
+* Run `rosdep install --from-paths src --ignore-src -r -y`
+* Run `~/.local/bin/colcon build`.  
+
+> Have to avoid working anywhere that knows about your ROS workspace as it'll put local files in the build.
 
 Then test by moving to a fresh terminal, without ROS set up (I don't have the `source` thing in my `.bashrc`), and run:
 ```
