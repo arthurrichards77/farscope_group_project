@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   ur_gazebo
   ur_description
+  gazebo_plugins
 )
 
 ## System dependencies are found with CMake's conventions
@@ -165,6 +166,7 @@ catkin_install_python(PROGRAMS
   scripts/example/move_arm.py
   scripts/example/move_base.py
   scripts/example/move_gripper.py
+  scripts/example/test_pickup.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
@@ -196,7 +198,7 @@ catkin_install_python(PROGRAMS
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
 
-install(DIRECTORY launch scripts/example scripts/setup models
+install(DIRECTORY launch scripts/example scripts/setup models scenarios controller worlds
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
