@@ -2,6 +2,8 @@
 
 Notes on attempts to get this simulation deployed to AWS Robomaker, following [Developer Guide](https://docs.aws.amazon.com/robomaker/latest/dg/what-is-robomaker.html)
 
+## Building it: local Linux work
+
 AWS separates the simulation application from the robot (controller) application.  However, since I've got a package with both, I decided there'd just be one application bundle.  I *think* you can separate the apps again later by specifying different launch files on AWS.  Therefore I started by creating two separate launch files: one for the example robot and similator only, and one for the controller.
 
 Following [these instructions](https://docs.aws.amazon.com/robomaker/latest/dg/application-create-new.html):
@@ -37,6 +39,40 @@ roslaunch farscope_group_project farscope_example_robot_simulate.launch
 ```
 Note the `setup.sh` version in the instructions didn't work for me but the `.bash` one did.  If successful, you should see the Gazebo GUI and the robot picking up a target.
 
-Then on to `~/.local/bin/colcon bundle` - first I got an error "have you set your keys correctly?" which I fixed using the `wget` command [here](https://github.com/colcon/colcon-bundle/issues/100).
+Then on to `~/.local/bin/colcon bundle` - first I got an error "have you set your keys correctly?" which I fixed using the `wget` command [here](https://github.com/colcon/colcon-bundle/issues/100).  Then it worked and I had a new `output.tar` file in a `bundle` subdirectory.
 
 That's all for now - next steps are to get it up to AWS.
+
+## Deploying it: AWS work
+
+Following [these instructions](https://docs.aws.amazon.com/robomaker/latest/dg/create-robot-application.html) and doing it via the web console.
+
+* Sign in to AWS console.  I use the "Ireland" region as the UK one doesn't yet have robomaker.  I signed it with my root ID as I've not got my head round IAM yet.
+* At step 3, I followed "new S3 destination", created a new `farscope-group-project-bucket` (no underscores allowed) with default settings, and uploaded the `output.tar` file that my `colcon bundle` step created.  Then chose that from the "Browse S3" button next to x86_64 and clicked "create".
+
+Moving on to the [simulation app instructions](https://docs.aws.amazon.com/robomaker/latest/dg/create-simulation-application.html) - largely same again, choosing the same `.tar` bundle and selecting ROS Melodic and Gazebo 9.
+
+Now moving on to the actual simulation run using [these instructions](https://docs.aws.amazon.com/robomaker/latest/dg/create-simulation-job.html)
+
+Step 1 Configure:
+
+* Job duration to 5 minutes
+* Fail behaviour to `fail`
+* For IAM role I chose `make new role` and gave it name `farscope-sim-role`
+* For output, I followed `new S3 destination` and made a new `sim-output` folder in my `farscope-group-project-bucket` before selecting that as destination
+
+Step 2 Specify Robot App
+
+* Chose my existing robot app and left version at default `$LATEST`
+* Entered `farscope_group_project` as package and `farscope_example_robot_control.launch` as launch file
+
+Step 3 Specify Simulation App
+
+* Chose my sim app and left version at default `$LATEST`
+* Entered `farscope_group_project` as package and `farscope_example_robot_simulator_only.launch` as launch file
+
+Step 4 Review
+
+* Just clicked OK!
+
+Failed, so click on the logs to see output.  Consistently getting error `not found: "/home/aeagr/ros/group_project_ws/devel/local_setup.sh"` which makes sense as that's my local machine path and wouldn't exist on AWS.  Some information about a similar problem [here](https://github.com/colcon/colcon-bundle/issues/103) but haven't made sense of it yet.
