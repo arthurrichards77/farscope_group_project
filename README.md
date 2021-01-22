@@ -39,7 +39,7 @@ The package was developed in ROS Melodic using Gazebo 9.0.0 on Ubuntu 18.04.  It
 
 ## Basic Usage
 
-This section describes the ROS interface started by the [`launch/example_robot/farscope_example_robot_simulate.launch`](launch/example_robot/farscope_example_robot_simulate.launch) file.
+This section describes the ROS interface started by the [`launch/example_robot/farscope_example_robot_simulate.launch`](launch/example_robot/farscope_example_robot_simulate.launch) file.  Unless otherwise stated, these are all published or subscribed to by the Gazebo node, as a result of [plugins enabled in the `robot_description` URDF](http://gazebosim.org/tutorials?tut=ros_gzplugins).
 
 > Also included in that file is the node [`scripts/example/test_pickup.py`](scripts/example/test_pickup.py) which shows examples of how to use the control interface.
 
@@ -51,6 +51,7 @@ This section describes the ROS interface started by the [`launch/example_robot/f
 * _camera1/image_raw_ : [sensor_msgs/Image](https://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/Image.html) : output of the forearm camera
 * _camera2/image_raw_ : [sensor_msgs/Image](https://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/Image.html) : output of the upper arm camera
 * _joint_states_ : [sensor_msgs/JointState](http://docs.ros.org/en/api/sensor_msgs/html/msg/JointState.html) : states of all robot joints, including arm and gripper
+* _odom_ : [nav_msgs/Odometry](http://docs.ros.org/en/noetic/api/nav_msgs/html/msg/Odometry.html) : odometry from the mobile robot base
 
 ### Subscribes
 
@@ -65,6 +66,10 @@ This section describes the ROS interface started by the [`launch/example_robot/f
 See [here](http://wiki.ros.org/actionlib/Tutorials) for information on using ROS actions
 
 * _arm_controller/follow_joint_trajectory_ : [control_msgs/FollowJointTrajectoryAction](http://docs.ros.org/en/electric/api/control_msgs/html/msg/FollowJointTrajectoryAction.html) : controls the movement of the UR10 arm
+
+### Parameters
+
+_TO DO_
 
 ## Customizing your Robot
 
