@@ -69,7 +69,9 @@ See [here](http://wiki.ros.org/actionlib/Tutorials) for information on using ROS
 
 ### Parameters
 
-_TO DO_
+* _robot_description_ : the URDF model of the robot
+* _target_description_ : URDF model of an individual pick-up target
+* _scenario_ : data on the locations of the targets in the world (see [`scenario_all.yaml`](scenarios/scenario_all.yaml)  for an example of the internal format)
 
 ## Customizing your Robot
 
