@@ -1,10 +1,43 @@
 # AWS Robomaker Deployment
 
-Notes on attempts to get this simulation deployed to AWS Robomaker, following [Developer Guide](https://docs.aws.amazon.com/robomaker/latest/dg/what-is-robomaker.html)
+Notes on attempts to get this simulation deployed to AWS Robomaker.
+
+## Building it on AWS CLoud 9
+
+I did all these initial steps logged as an Adminstrator IAM user - [see here](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html).
+
+* Create an "input bucket" and an "output bucket" on S3 using [these instructions](https://docs.aws.amazon.com/robomaker/latest/dg/application-create-simjob.html#application-simjob-bucket)
+* Set up an IAM role following [these instructions](https://docs.aws.amazon.com/robomaker/latest/dg/application-create-simjob.html#application-simjob-security) including bucket access and account number
+* Create a cloud9 environment following [these instructions](https://docs.aws.amazon.com/robomaker/latest/dg/cloud9-create-ide.html).  I used ROS Melodic with Gazebo 9.
+* In the IDE terminal, creating a new workspace in my home directory `mkdir -p farscope_ws\src`
+* Cloning this and the two dependency repositories into `farscope_ws\src` using `git` in the terminal
+* Add the following to the `install` section of `neo_simulation\CMakeLists.txt` so my built package could access its contents:
+```
+install(DIRECTORY launch scripts robots
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
+```
+* Click Run -> Build -> Edit Configurations and make a new one for `farscope_ws`.  Run it.
+* Before I could get bundling to to work, I had to run the following, copying [this discussion](https://forums.aws.amazon.com/thread.jspa?messageID=950062):
+```
+sudo pip3 uninstall colcon-bundle colcon-ros-bundle
+pip3 install colcon-bundle colcon-ros-bundle
+```
+* Click Run -> Bundle -> Edit Configurations and make a new one for `farscope_ws`.  Run it.
+* Click Run -> Launch Simulation -> Edit... (you get the idea).  Choose the same bundle `output.tar` for both sim and robot applications.  Use the S3 buckets and IAM roles from previous steps, and remember that the "input bucket" is where you upload the apps to.
+
+### Sharing it with other users, e.g. students
+
+* Create an IAM group for your users and add users
+* Attach policies `AWSCloud9EnvironmentMember`, `AmazonS3ReadOnlyAccess`, `CloudWatchLogsReadOnlyAccess` and `AWSRoboMaker_FullAccess` to the group
+* Logged in as Administrator, go to your environment and use the "share" button to invite those users.
+* Share the URL from the `share` panel in the Cloud9 environment
 
 ## Building it: local Linux work
 
 > I never got this to work!  Can build and bundle but it refused to run on AWS, citing missing launch files.
+
+Following [Developer Guide](https://docs.aws.amazon.com/robomaker/latest/dg/what-is-robomaker.html)
 
 ### Preparing the Workspace
 
@@ -88,19 +121,3 @@ Step 4 Review
 * Just clicked OK!
 
 Failed, so click on the logs to see output.  Consistently getting error `not found: "/home/aeagr/ros/group_project_ws/devel/local_setup.sh"` which makes sense as that's my local machine path and wouldn't exist on AWS.  Some information about a similar problem [here](https://github.com/colcon/colcon-bundle/issues/103) but haven't made sense of it yet.
-
-## Building it on AWS CLoud 9
-
-> This did work, just
-
-* Create a cloud9 environment following [these instructions](https://docs.aws.amazon.com/robomaker/latest/dg/cloud9-create-ide.html)
-* In the IDE terminal, creating a new workspace in my home directory `mkdir -p farscope_ws\src`
-* Cloning this and the two dependency repositories into `farscope_ws\src` using `git` in the terminal
-* Make the edit to `neo_simulation\CMakeLists.txt` as above
-* Click Run -> Build -> Edit COnfigurations and make a new one for `farscope_ws`.  Run it.
-* Click Run -> Bundle -> Edit Configurations and make a new one for `farscope_ws`.  Run it.
-* Cliick Run -> Launch Simulation -> Edit... (you get the idea).  Choose the bundle tar for both sim and robot applications.  Must specify upload S3 location.
-> I always found the launch failed due to AWS IAM permission issues, but it should make the necessary applications and upload the tar files.
-* Navigate ro AWS Robomaker Console and make a new Simulation Job with your new apps.  Follow [these instructions](https://docs.aws.amazon.com/robomaker/latest/dg/create-simulation-job.html) as above but use your CLoud9 upload as sources.
-> Do *not* choose "record all ROS outputs" as then the permissions problem will prevent your sim from starting.
-> Leave the "output save location" blank - otherwise I got errors.
