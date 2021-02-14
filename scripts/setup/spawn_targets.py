@@ -41,9 +41,9 @@ for shelf in scenario:
         rospy.loginfo('Target at {},{},{}'.format(shelf['location']['x'],shelf['location']['y'],shelf_heights[trophy]))
         model_name = 'target_{}_{}'.format(shelf['id'],trophy)
         initial_pose = Pose()
-	initial_pose.position.x = shelf['location']['x']
-	initial_pose.position.y = shelf['location']['y']
-	initial_pose.position.z = shelf_heights[trophy]
+        initial_pose.position.x = shelf['location']['x']
+        initial_pose.position.y = shelf['location']['y']
+        initial_pose.position.z = shelf_heights[trophy]
         resp = spawn_urdf(model_name, target_urdf, "", initial_pose, "")
         rospy.loginfo(resp.status_message)
 	
