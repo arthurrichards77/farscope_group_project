@@ -18,6 +18,7 @@ The package was developed in ROS Melodic using Gazebo 9.0.0 on Ubuntu 18.04.  It
 * [neo_simulation](https://github.com/neobotix/neo_simulation) : simulation of the MMO-700 from Neobotix
 * [universal_robot](https://github.com/ros-industrial/universal_robot) : the UR10 support from [ROS Industrial](https://rosindustrial.org/)
 * [joint_state_publisher_gui](https://wiki.ros.org/joint_state_publisher) : the GUI for generating fake joint states, needed for visualizing the robot
+* [ros_controllers](http://wiki.ros.org/ros_controllers) : standard controllers for the simulated robot
 
 > Note: there is also an indirect dependency on MoveIt, a ROS motion planner which is required by the `universal_robot` package.  You might end up using it, or you might not, so options for a workaround or install MoveIt are given below.
 
@@ -30,6 +31,7 @@ The package was developed in ROS Melodic using Gazebo 9.0.0 on Ubuntu 18.04.  It
 
 * If you don't have it already, install ROS Melodic and set up a workspace using [these instructions](http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment)
 * Install the `joint_state_publisher_gui` using `sudo apt install ros-melodic-joint-state-publisher-gui`.  (_Replace `melodic` with your distribution if required._)
+* Install `ros_controllers` using `sudo apt install ros-melodic-ros-controllers`.
 * Clone this package, [neo_simulation](https://github.com/neobotix/neo_simulation) and [universal_robot](https://github.com/ros-industrial/universal_robot) into the workspace `src` directory.
 * Navigate up to the root directory of your ROS workspace (`cd ..` from `src`) and run `catkin_make`.
 > If you get an error saying "moveit_core" not found, _either_ re-run as `catkin_make -DCATKIN_BLACKLIST_PACKAGES="ur_kinematics"` _or_ install the missing component using `sudo apt install ros-melodic-moveit` (or another distro instead of melodic).
