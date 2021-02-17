@@ -19,6 +19,8 @@ The package was developed in ROS Melodic using Gazebo 9.0.0 on Ubuntu 18.04.  It
 * [universal_robot](https://github.com/ros-industrial/universal_robot) : the UR10 support from [ROS Industrial](https://rosindustrial.org/)
 * [joint_state_publisher_gui](https://wiki.ros.org/joint_state_publisher) : the GUI for generating fake joint states, needed for visualizing the robot
 
+> Note: there is also an indirect dependency on MoveIt, a ROS motion planner which is required by the `universal_robot` package.  You might end up using it, or you might not, so options for a workaround or install MoveIt are given below.
+
 > Note: there are different ROS packages for the UR10 arm depending on what firmware is installed.  This simulation does not guarantee compatibility with the real
 > FARSCOPE arms as that has yet to be tested.
 
@@ -30,6 +32,7 @@ The package was developed in ROS Melodic using Gazebo 9.0.0 on Ubuntu 18.04.  It
 * Install the `joint_state_publisher_gui` using `sudo apt install ros-melodic-joint-state-publisher-gui`.  (_Replace `melodic` with your distribution if required._)
 * Clone this package, [neo_simulation](https://github.com/neobotix/neo_simulation) and [universal_robot](https://github.com/ros-industrial/universal_robot) into the workspace `src` directory.
 * Navigate up to the root directory of your ROS workspace (`cd ..` from `src`) and run `catkin_make`.
+> If you get an error saying "moveit_core" not found, _either_ re-run as `catkin_make -DCATKIN_BLACKLIST_PACKAGES="ur_kinematics"` _or_ install the missing component using `sudo apt install ros-melodic-moveit` (or another distro instead of melodic).
 * Run `roslaunch farscope_group_project farscope_example_robot_visualize.launch`.  You should see an RViz visualization of the robot.
 ![RViz screenshot](https://raw.githubusercontent.com/arthurrichards77/farscope_group_project/main/Screenshot%20from%202021-01-18%2014-11-59.png)
 * Run `roslaunch farscope_group_project farscope_example_robot_simulate.launch`.  You should see a Gazebo simulation of the robot picking a target of a shelf and dropping it.
