@@ -106,7 +106,7 @@ catkin_python_setup()
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES farscope_group_proj
+#  LIBRARIES farscope_group_project
 #  CATKIN_DEPENDS neo_simulation rospy ur_gazebo
 #  DEPENDS system_lib
 )
