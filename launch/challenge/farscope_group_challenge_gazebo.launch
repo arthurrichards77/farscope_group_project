@@ -5,7 +5,8 @@
   <!-- launching gazebo (copied from ur_gazebo/ur10.launch) -->
   <arg name="paused" default="false" doc="Starts gazebo in paused mode" />
   <arg name="gui" default="true" doc="Starts gazebo gui" />
-  
+  <arg name="scenario_file" default="scenario_all" />
+
   <!-- startup simulated world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" default="$(find farscope_group_project)/worlds/farscope_test_2.world"/>
@@ -17,7 +18,7 @@
   <param name="target_description" textfile="$(find farscope_group_project)/models/target/target.urdf" />  
 
   <!-- load scenario parameter -->
-  <rosparam command="load" file="$(find farscope_group_project)/scenarios/scenario_all.yaml" />
+  <rosparam command="load" file="$(find farscope_group_project)/scenarios/$(arg scenario_file).yaml" />
 
   <!-- spawn targets -->
   <node name="spawn_targets" pkg="farscope_group_project" type="spawn_targets.py" />
