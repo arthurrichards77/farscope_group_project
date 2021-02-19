@@ -8,7 +8,7 @@ Optional random omission of spawning and
 additive placement error along shelf
 """
 from random import uniform, random
-from math import sin, cos
+from math import sin, cos, fabs
 import rospy
 from geometry_msgs.msg import Pose
 from gazebo_msgs.srv import SpawnModel
@@ -20,21 +20,18 @@ rospy.wait_for_service('/gazebo/spawn_urdf_model')
 rospy.loginfo('Service ready')
 spawn_urdf = rospy.ServiceProxy('/gazebo/spawn_urdf_model', SpawnModel)
 
-shelf_heights = [0.06, 0.43, 0.81, 1.21]
+shelf_heights = rospy.get_param('shelf_heights')
 
 scenario = rospy.get_param('scenario')
 
-random_noise = rospy.get_param('random_noise', False)
-if random_noise:
-    rospy.loginfo('Random spawning noise ON')
-else:
-    rospy.loginfo('Random spawning noise OFF')
+placement_error = fabs(rospy.get_param('placement_error', 0.0))
+rospy.loginfo('Random placement error up to {}'.format(placement_error))
 
-random_omit = rospy.get_param('random_omit', False)
-if random_omit:
-    rospy.loginfo('Random spawning omissions ON')
-else:
-    rospy.loginfo('Random spawning omissions OFF')
+prob_random_omit = rospy.get_param('prob_random_omit', 0.0)
+rospy.loginfo('Random spawning omission probability {}'.format(prob_random_omit))
+
+prob_random_duplicate = rospy.get_param('prob_random_duplicate', 0.0)
+rospy.loginfo('Random spawning duplication probability {}'.format(prob_random_duplicate))
 
 target_urdf = rospy.get_param('target_description')
 
@@ -46,22 +43,30 @@ for shelf in scenario:
         z_pos = shelf_heights[trophy]
         rospy.loginfo('Target at {},{},{}'.format(x_pos, y_pos, z_pos))
         model_name = 'target_{}_{}'.format(shelf['id'], trophy)
-        if random_noise:
-            along_shelf_error = uniform(-0.35, 0.35)
-            x_pos = x_pos + along_shelf_error*cos(shelf_angle)
-            y_pos = y_pos + along_shelf_error*sin(shelf_angle)
-        omit_flag = False
-        if random_omit:
-            prob_omit = 0.2
-            if random() < prob_omit:
-                omit_flag = True
-        if not omit_flag:
+        # add random placement error
+        along_shelf_error = uniform(-placement_error, placement_error)
+        x_pos = x_pos + along_shelf_error*cos(shelf_angle)
+        y_pos = y_pos + along_shelf_error*sin(shelf_angle)
+        # check for random omission
+        if random() >= prob_random_omit:
             initial_pose = Pose()
             initial_pose.position.x = x_pos
             initial_pose.position.y = y_pos
             initial_pose.position.z = z_pos
             resp = spawn_urdf(model_name, target_urdf, "", initial_pose, "")
-            #rospy.loginfo(resp.status_message)
+            # random duplication
+            if random() < prob_random_duplicate:
+                dup_offset = 0.3
+                if along_shelf_error > 0.0:
+                    dup_along_shelf = (-dup_offset)
+                else:
+                    dup_along_shelf = dup_offset
+                dup_x_pos = x_pos + dup_along_shelf*cos(shelf_angle)
+                dup_y_pos = y_pos + dup_along_shelf*sin(shelf_angle)
+                initial_pose.position.x = dup_x_pos
+                initial_pose.position.y = dup_y_pos
+                dup_model_name = model_name + '_dup'
+                resp = spawn_urdf(dup_model_name, target_urdf, "", initial_pose, "")
 
 rospy.loginfo('Target spawning complete')
 rospy.set_param('target_spawning_complete', True)
