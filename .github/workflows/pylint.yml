@@ -19,4 +19,4 @@ jobs:
         pip install pylint catkin_pkg
     - name: Analysing the code with pylint
       run: |
-        pylint `ls -R|grep .py$|xargs`
+        pylint src\**\*.py
