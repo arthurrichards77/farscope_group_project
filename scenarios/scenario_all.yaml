@@ -1,3 +1,4 @@
+shelf_heights: [0.06, 0.43, 0.81, 1.21]
 scenario:
   - id: 1
     location: 
@@ -6,7 +7,7 @@ scenario:
       ang: -1.5706
     trophies: [0,1,2,3]
 
-  - id: 2,
+  - id: 2
     location: 
       x: 2.0
       y: -1.5
