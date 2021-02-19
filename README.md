@@ -48,6 +48,10 @@ This section describes the ROS interface started by the [`launch/example_robot/f
 
 > Also included in that file is the node [`scripts/example/test_pickup.py`](scripts/example/test_pickup.py) which shows examples of how to use the control interface.
 
+![rqt_graph screenshot](https://raw.githubusercontent.com/arthurrichards77/farscope_group_project/doc/rosgraph.png)
+
+> Note: there are other topics available in the `\gazebo` namespace that are not shown in the diagram above.  *These must not be used as part of your final submission.  They contain direct information feeds from the simulator and are essentially cheating the problem.  You can, however, use them for development, if it serves a purpose.*
+
 ### Publishes
 
 (incomplete list)
