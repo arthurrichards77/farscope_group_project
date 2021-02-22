@@ -18,12 +18,13 @@
   <param name="target_description" textfile="$(find farscope_group_project)/models/target/target.urdf" />  
 
   <!-- load scenario parameter -->
-  <rosparam command="load" file="$(find farscope_group_project)/scenarios/$(arg scenario_file).yaml" />
+  <rosparam command="load" file="$(arg scenario_file)" />
 
   <!-- spawn targets -->
   <node name="spawn_targets" pkg="farscope_group_project" type="spawn_targets.py" />
 
   <!-- spawn SDF obstacle -->
-  <node name="spawn_gazebo_cone_1" pkg="gazebo_ros" type="spawn_model" args="-sdf -database construction_cone -model cone_1 -y -8" respawn="false" output="screen" />
+  <!-- <node name="spawn_gazebo_cone_1" pkg="gazebo_ros" type="spawn_model" args="-sdf -database construction_cone -model cone_1 -y -8" respawn="false" output="screen" /> -->
+  <!-- not in use -->
 
 </launch>

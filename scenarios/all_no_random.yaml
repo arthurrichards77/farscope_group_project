@@ -1,11 +1,14 @@
-shelf_heights: [0.06, 0.43, 0.81, 1.21]
+shelf_heights: [0.06, 0.43, 0.81, 1.21] # do not edit - must match world file
+placement_error: 0.0 # range of random placement error along shelf (m)
+prob_random_omit: 0.0 # probability that any specified target is skipped
+prob_random_duplicate: 0.0 # probability that any placed target is duplicated
 scenario:
   - id: 1
-    location: 
+    location: # do not edit location info - must match world file
       x: 2.0 
       y: 0.0 
       ang: -1.5706
-    trophies: [0,1,2,3]
+    trophies: [0,1,2,3] # which shelves have trophies (nominally; 0=bottom, 3=top)
 
   - id: 2
     location: 

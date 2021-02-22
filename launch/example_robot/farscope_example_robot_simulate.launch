@@ -5,8 +5,10 @@
 <launch>
 
   <!-- launch Gazebo in the Group Challenge world -->
-  <!-- use `roslaunch farscope_example_robot_simulate use_gui:=false` to turn off Gazebo GUI -->-->
-  <arg name="scenario_file" default="scenario_all" />
+  <!-- use `roslaunch farscope_example_robot_simulate use_gui:=false` to turn off Gazebo GUI -->
+  <!-- use `roslaunch farscope_example_robot_simulate scenario:=<file>` to change scenario file -->
+  <!-- e.g. `scenario:=$(find farscope_group_project)/scenarios/all_no_random.yaml` all trophies, perfectly placed -->
+  <arg name="scenario_file" default="$(find farscope_group_project)/scenarios/typical.yaml" />
   <arg name="use_gui" default="true" />
   <include file="$(find farscope_group_project)/launch/challenge/farscope_group_challenge_gazebo.launch">
     <arg name="gui" value="$(arg use_gui)" />
