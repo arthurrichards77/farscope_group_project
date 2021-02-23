@@ -92,17 +92,65 @@ The robot is represented in [Unified Robot Description Format (URDF)](http://wik
 
 ## Package Contents
 
-_TO DO_
+```
+package.xml     :  defines package data such as dependencies and authorship, for ROS
+CMakeLists.txt  :  used by the catkin_make 
+setup.py        :  defines the Python modules that are shared from this package
+aws_notes.md    :  incomplete discussions on getting this working on AWS Robomaker
 
-### Models
+./worlds:
+farscope_test_2.world  :  tells Gazebo where to put the shelves and cones
 
-### Scripts
+./src/farscope_group_project:
+farscope_robot_utils.py  :  Python library providing interfaces for the arm, base and gripper (hiding the ROS away, optionally)
 
-### Launch
+./models/example_robot:
+farscope_example_robot.urdf.xacro  :  robot model combining the mobile base, UR10 arm, and gripper, to be used as example for customization
 
-### Worlds
+./models/mobile_arm:
+mobile_arm.urdf.xacro  :  provides a xacro 'macro' to include the mobile manipulator in other URDF/xacro models
 
-### Scenarios
+./models/camera:
+simple_camera.urdf.xacro  :  xacro macro for including camera (physical model and gazebo functionality) in other URDF/xacro models
+
+./models/target:
+target.urdf  :  model of the target or "trophy"
+target.stl   :  CAD mesh of the trophy
+
+./models/gripper:
+simple_gripper.urdf.xacro  :  xacro macro for the simple gripper, to be included in integrated models
+
+./scripts/example:
+move_gripper.py    :  utility script for manual operation of the gripper
+move_base.py       :  utility script for manual operation of the base
+move_arm.py        :  utility script for manual operation of the base
+test_pickup.py     :  example of an integrated robot controller that does just one pickup in very simplistic, open-loop way
+
+./scripts/setup:
+spawn_targets.py   :  script that spawns targets, including randomization, to set up the challenge scenario
+
+./controller:
+gripper.yaml       :  definition of the controllers used in Gazebo to simulate feedback control of the simple gripper
+
+./scenarios:        :  these files tell the spawn_targets.py script where to put trophies and with what level of randomization
+typical.yaml        :  default scenario with random misplacements, omissions and duplicates
+all_no_random.yaml  :  scenario with one target placed exactly in the centre of every shelf
+
+./launch/common:
+ur10_controllers.launch    :  loads the parameters for the UR10 controller, as simulated by the Gazebo plug-ins
+gripper_controller.launch  :  loads the parameters for the gripper controller
+
+./launch/example_robot:
+farscope_example_robot_simulate.launch         :  simulates the example robot and the test_pickup.py example controller
+simulate.rviz                                  :  config for RViz that shows sensor outputs
+farscope_example_robot_visualize.launch        :  displays the example robot model in RViz and lets you manipulate its joints
+visualize.rviz                                 :  config for RViz to show robot model
+farscope_example_robot_control.launch          :  (for AWS use) just the robot controller parts of the farscope_example_robot_simulate
+farscope_example_robot_simulator_only.launch   :  (for AWS use) just the simulator parts of the farscope_example_robot_simulate
+
+./launch/challenge:
+farscope_group_challenge_gazebo.launch         :  standard parts of all challenge simulations, including target spawning and Gazebo with the shelves and cones 
+```
 
 ## Limitations and Disclaimer
 
